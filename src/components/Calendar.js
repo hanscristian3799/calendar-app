@@ -1,28 +1,23 @@
 import React, { useState } from "react";
 import Days from "./Days";
+import {days, months} from '../helpers/datas/calendar'
+import '../style/calendar.css'
 
 const Calendar = () => {
   const [currentDay, setCurrentDay] = useState(new Date());
 
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
-
+  
   const changeCurrentDay = (day) => {
+    console.log("CHANGE CURR DAY", new Date(day.year, day.month, day.number));
     setCurrentDay(new Date(day.year, day.month, day.number));
   };
 
   return (
-    <div className="calendar">
+    <div>
+      <div className="calendar">
       <div className="calendar-header">
         <h2>
-          {currentDay.getMonth()} {currentDay.getFullYear()}
+          {months[currentDay.getMonth()]} {currentDay.getFullYear()}
         </h2>
       </div>
       <div className="calendar-body">
@@ -35,9 +30,9 @@ const Calendar = () => {
             );
           })}
         </div>
-        {/* <div className="table"></div> */}
         <Days propsDay={currentDay} changeCurrentDay={changeCurrentDay} />
       </div>
+    </div>
     </div>
   );
 };
