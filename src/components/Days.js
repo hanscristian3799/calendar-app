@@ -4,24 +4,18 @@ import Day from "./Day";
 
 const Days = ({ propsDay, changeCurrentDay }) => {
   let firstDay = new Date(propsDay.getFullYear(), propsDay.getMonth(), 1);
-  console.log("FIRST DAY", firstDay.getDay());
   let weekOfFirstDay = firstDay.getDay() - 1;
   let currentDays = [];
 
   for (let day = 0; day < 42; day++) {
     if (day === 0 && weekOfFirstDay === 0) {
-      console.log("1");
       firstDay.setDate(firstDay.getDate() - 7);
     } else if (day === 0) {
-      console.log("2", weekOfFirstDay);
       firstDay.setDate(firstDay.getDate() + (day - weekOfFirstDay));
     } else {
-      console.log("3");
       firstDay.setDate(firstDay.getDate() + 1);
     }
 
-    console.log("day", day);
-    console.log("number", firstDay.getDate());
     let calendarDay = {
       currentMonth: firstDay.getMonth() === propsDay.getMonth(),
       date: new Date(firstDay),
@@ -31,7 +25,6 @@ const Days = ({ propsDay, changeCurrentDay }) => {
       year: firstDay.getFullYear(),
     };
 
-    // console.log("ABC", calendarDay);
     currentDays.push(calendarDay);
   }
 

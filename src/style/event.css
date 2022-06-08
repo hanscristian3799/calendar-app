@@ -1,0 +1,7 @@
+.event {
+    width: 500px;
+    background: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
