@@ -1,41 +1,41 @@
-.event-container{
-    width: 500px;
-    background: #A760FF;
-    height: 100vh;
-    overflow: auto;
+.event-container {
+  width: 500px;
+  background: #a760ff;
+  height: 100vh;
+  overflow: auto;
 }
 
 .time {
-    background: #ffff;
-    outline: none;
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
+  background: #ffff;
+  outline: none;
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
 }
 
 .invitees {
-    width: 400px;
-    height: 50px;
-    overflow-x: auto;
+  width: 400px;
+  height: 50px;
+  overflow-x: auto;
 }
 
 .chip {
-    background: #3e8bff;
-    padding: 5px;
-    border-radius: 10px;
-    color: #ffff;
+  background: #3e8bff;
+  padding: 5px;
+  border-radius: 25px;
+  color: #ffff;
 }
 
 ::-webkit-scrollbar {
-    width: 1px;
-    height: 5px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 12px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+  width: 1px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
