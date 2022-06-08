@@ -29,15 +29,15 @@ const Days = ({ propsDay, changeCurrentDay }) => {
   }
 
   return (
-    <div className="table-content">
+    <div className="table-content d-flex flex-wrap flex-grow-1 justify-content-center">
       {currentDays.map((day, index) => {
         return (
           <Day key={index}>
             <div
               className={
-                "calendar-day" +
+                "calendar-day position-relative" +
                 (day.currentMonth ? " current" : " day-disabled") +
-                (day.selected ? " selected" : "")
+                (day.selected ? " selected fw-bolder" : "")
               }
               onClick={() => (day.currentMonth ? changeCurrentDay(day) : null)}
             >

@@ -1,7 +1,41 @@
-.event {
+.event-container{
     width: 500px;
-    background: blue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #A760FF;
+    height: 100vh;
+    overflow: auto;
 }
+
+.time {
+    background: #ffff;
+    outline: none;
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.invitees {
+    width: 400px;
+    height: 50px;
+    overflow-x: auto;
+}
+
+.chip {
+    background: #3e8bff;
+    padding: 5px;
+    border-radius: 10px;
+    color: #ffff;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+    height: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 12px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

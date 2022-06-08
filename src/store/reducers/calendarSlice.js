@@ -1,6 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  //This is what en event should looks like
+  // {
+  //   id: 1,
+  //   date: "8 June 2022",
+  //   name: "Gathering",
+  //   time: "09.00",
+  //   invitees: ["person1@gmail.com", "person2@gmail.com", "person3@gmail.com"]
+  // }
   events: [],
   selectedDate: {},
 };
