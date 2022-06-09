@@ -10,7 +10,14 @@ const initialState = {
   //   invitees: ["person1@gmail.com", "person2@gmail.com", "person3@gmail.com"]
   // }
   events: [],
-  selectedDate: {},
+  selectedDate: {
+    currentMonth: false,
+    date: new Date().toDateString(),
+    month: new Date().getMonth(),
+    number: new Date().getDate(),
+    selected: true,
+    year: new Date().getFullYear(),
+  },
 };
 
 const calendarSlice = createSlice({
@@ -22,7 +29,7 @@ const calendarSlice = createSlice({
     },
     setSelectedDate(state, action) {
       state.selectedDate = action.payload;
-    }
+    },
   },
 });
 

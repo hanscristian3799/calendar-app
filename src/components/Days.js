@@ -1,14 +1,20 @@
 import React from "react";
 import "../style/calendar.css";
 import Day from "./Day";
+import { setSelectedDate, selectedDate } from "../store/reducers/calendarSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const Days = ({ propsDay, changeCurrentDay }) => {
-  let firstDay = new Date(propsDay.getFullYear(), propsDay.getMonth(), 1);
+const Days = () => {
+  const dispatch = useDispatch();
+  const currentMonth = useSelector(selectedDate);
+
+  let firstDay = new Date(currentMonth.year, currentMonth.month, 1);
   let weekOfFirstDay = firstDay.getDay() - 1;
   let currentDays = [];
 
-  //ADD METHOD TO CHANGE SELECTED DAY IN STORE HERE
-  //CHANGE THIS COMPONENT STATE
+  const changeCurrentDay = (day) => {
+    dispatch(setSelectedDate({ ...day, date: day.date.toDateString() }));
+  };
 
   for (let day = 0; day < 42; day++) {
     if (day === 0 && weekOfFirstDay === 0) {
@@ -20,11 +26,11 @@ const Days = ({ propsDay, changeCurrentDay }) => {
     }
 
     let calendarDay = {
-      currentMonth: firstDay.getMonth() === propsDay.getMonth(),
+      currentMonth: firstDay.getMonth() === currentMonth.month,
       date: new Date(firstDay),
       month: firstDay.getMonth(),
       number: firstDay.getDate(),
-      selected: firstDay.toDateString() === propsDay.toDateString(),
+      selected: firstDay.toDateString() === currentMonth.date,
       year: firstDay.getFullYear(),
     };
 

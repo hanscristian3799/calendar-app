@@ -5,13 +5,12 @@ import { selectedDate, events } from "../store/reducers/calendarSlice";
 import Form from "./Form";
 
 const Events = () => {
-  // const { selectedDate } = useSelector((state) => state.calendar.selectedDate);
   const date = useSelector(selectedDate);
   const allEvents = useSelector(events);
 
   useEffect(() => {
-    console.log("SELECTED DATE", date);
-  }, [date]);
+    console.log("DATE", date);
+  });
 
   const viewEvents = () => {
     console.log("EVENTS", allEvents);
