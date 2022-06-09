@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 function App() {
   return (
     <Provider store={store}>
-      <div className="container-fluid d-flex justify-content-evenly vh-100">
+      <div className="container-fluid d-flex justify-content-evenly align-items-center vh-100">
         <Calendar />
         <Event />
       </div>
