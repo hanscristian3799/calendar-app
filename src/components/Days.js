@@ -7,6 +7,9 @@ const Days = ({ propsDay, changeCurrentDay }) => {
   let weekOfFirstDay = firstDay.getDay() - 1;
   let currentDays = [];
 
+  //ADD METHOD TO CHANGE SELECTED DAY IN STORE HERE
+  //CHANGE THIS COMPONENT STATE
+
   for (let day = 0; day < 42; day++) {
     if (day === 0 && weekOfFirstDay === 0) {
       firstDay.setDate(firstDay.getDate() - 7);

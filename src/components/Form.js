@@ -1,27 +1,45 @@
 import React, { useState, useRef } from "react";
 import TimePicker from "react-time-picker";
+import { useDispatch, useSelector } from "react-redux";
+import { addEvent, selectedDate } from "../store/reducers/calendarSlice";
 import "../style/event.css";
 
 const Form = () => {
+  const dispatch = useDispatch();
+
   const [time, setTime] = useState("10:00");
   const [invitees, setInvitess] = useState([]);
   const inviteeRef = useRef("");
+  const nameRef = useRef("");
+  const date = useSelector(selectedDate);
 
   const addInvitees = (invitee) => {
-    console.log("AAAAAAAAAAAAAAAAAAA");
-    console.log("add invitee", invitee);
     if (!invitee) return;
     setInvitess([...invitees, invitee]);
   };
 
-  const addEvent = () => {
+  const handleAddEvent = () => {
     console.log("INVITEE", invitees);
+    if (!time || !nameRef.current.value || invitees.length < 1) return;
+    const obj = {
+      id: Math.round(new Date() / 1000),
+      date,
+      name: nameRef.current.value,
+      invitees,
+      time,
+    };
+    dispatch(addEvent(obj));
   };
 
   return (
     <div>
       <div className="mb-3">
-        <input type="text" className="form-control" placeholder="Event name" />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Event name"
+          ref={nameRef}
+        />
       </div>
       <div className="mb-3">
         <TimePicker
@@ -36,7 +54,7 @@ const Form = () => {
           <input
             type="email"
             className="form-control me-1"
-            placeholder="Invitee Nane"
+            placeholder="Invitee Name"
             ref={inviteeRef}
           />
           <button
@@ -50,11 +68,13 @@ const Form = () => {
       <div className="invitees mb-3">
         {invitees.map((inv, index) => {
           return (
-            <span key={index} class="chip mb-2 me-2">{inv}</span>
+            <span key={index} className="chip mb-2 me-2">
+              {inv}
+            </span>
           );
         })}
       </div>
-      <button className="btn btn-primary" onClick={addEvent}>
+      <button className="btn btn-primary" onClick={handleAddEvent}>
         Submit
       </button>
     </div>

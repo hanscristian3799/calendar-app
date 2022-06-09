@@ -29,5 +29,6 @@ const calendarSlice = createSlice({
 export const { addEvent, setSelectedDate } = calendarSlice.actions;
 
 export const selectedDate = (state) => state.calendar.selectedDate;
+export const events = (state) => state.calendar.events;
 
 export default calendarSlice.reducer;
