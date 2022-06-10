@@ -7,7 +7,7 @@ import "../style/event.css";
 const Form = () => {
   const dispatch = useDispatch();
 
-  const [time, setTime] = useState("10:00");
+  const [time, setTime] = useState("");
   const [invitees, setInvitess] = useState([]);
   const inviteeRef = useRef("");
   const nameRef = useRef("");
@@ -29,6 +29,9 @@ const Form = () => {
       time,
     };
     dispatch(addEvent(obj));
+    setInvitess([]);
+    nameRef.current.value = "";
+    setTime("");
   };
 
   return (
@@ -47,6 +50,8 @@ const Form = () => {
           value={time}
           className="time"
           disableClock
+          hourPlaceholder="10"
+          minutePlaceholder="00"
         />
       </div>
       <div className="mb-3">

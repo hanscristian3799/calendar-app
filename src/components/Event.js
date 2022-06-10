@@ -18,12 +18,12 @@ const Events = () => {
 
   return (
     <div className="event-container d-flex flex-column align-items-center justify-content-around px-4">
-      <h2 className="text-light">Event Detail</h2>
-      <div className="event">{date ? date.date : "NOONE"}</div>
+      <h2 className="text-light">{date ? date.date : "Select Date"}</h2>
+      <div className="event">{date ? date.date : ""}</div>
       <button className="btn btn-danger" onClick={viewEvents}>
         View Events
       </button>
-      <Form date={date.date} />
+      <Form />
     </div>
   );
 };
