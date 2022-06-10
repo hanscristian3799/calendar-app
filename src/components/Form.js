@@ -19,7 +19,6 @@ const Form = () => {
   };
 
   const handleAddEvent = () => {
-    console.log("INVITEE", invitees);
     if (!time || !nameRef.current.value || invitees.length < 1) return;
     const obj = {
       id: Math.round(new Date() / 1000),

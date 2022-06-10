@@ -1,16 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import "../style/event.css";
-import { selectedDate, events } from "../store/reducers/calendarSlice";
+import { selectedDate, dates } from "../store/reducers/calendarSlice";
 import Form from "./Form";
 
 const Events = () => {
   const date = useSelector(selectedDate);
-  const allEvents = useSelector(events);
-
-  useEffect(() => {
-    console.log("DATE", date);
-  });
+  const allEvents = useSelector(dates);
 
   const viewEvents = () => {
     console.log("EVENTS", allEvents);

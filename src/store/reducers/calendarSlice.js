@@ -17,7 +17,9 @@ const initialState = {
     number: new Date().getDate(),
     selected: true,
     year: new Date().getFullYear(),
+    events: [],
   },
+  dates: [],
 };
 
 const calendarSlice = createSlice({
@@ -25,17 +27,29 @@ const calendarSlice = createSlice({
   initialState,
   reducers: {
     addEvent(state, action) {
-      state.events.push(action.payload);
+      const findData = state.dates.findIndex((date) => {
+        return date.date === action.payload.date.date;
+      });
+      const findDate = state.dates[findData];
+      const findLength = findDate.events.length;
+
+      if (findLength < 4) {
+        findDate.events.push(action.payload);
+      }
     },
     setSelectedDate(state, action) {
       state.selectedDate = action.payload;
     },
+    setDates(state, action) {
+      state.dates = action.payload.slice();
+    },
   },
 });
 
-export const { addEvent, setSelectedDate } = calendarSlice.actions;
+export const { addEvent, setSelectedDate, setDates } = calendarSlice.actions;
 
 export const selectedDate = (state) => state.calendar.selectedDate;
 export const events = (state) => state.calendar.events;
+export const dates = (state) => state.calendar.dates;
 
 export default calendarSlice.reducer;

@@ -1,9 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Days from "./Days";
+import { setDates, selectedDate } from "../store/reducers/calendarSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { days } from "../helpers/datas/calendar";
 import "../style/calendar.css";
 
 const Calendar = () => {
+  const dispatch = useDispatch();
+  const currentMonth = useSelector(selectedDate);
+  let firstDay = new Date(currentMonth.year, currentMonth.month, 1);
+  let weekOfFirstDay = firstDay.getDay() - 1;
+  let currentDays = [];
+
+  useEffect(() => {
+    for (let day = 0; day < 42; day++) {
+      if (day === 0 && weekOfFirstDay === 0) {
+        firstDay.setDate(firstDay.getDate() - 7);
+      } else if (day === 0) {
+        firstDay.setDate(firstDay.getDate() + (day - weekOfFirstDay));
+      } else {
+        firstDay.setDate(firstDay.getDate() + 1);
+      }
+
+      let calendarDay = {
+        currentMonth: firstDay.getMonth() === currentMonth.month,
+        date: new Date(firstDay).toDateString(),
+        month: firstDay.getMonth(),
+        number: firstDay.getDate(),
+        selected: firstDay.toDateString() === currentMonth.date,
+        year: firstDay.getFullYear(),
+        events: [],
+      };
+
+      currentDays.push(calendarDay);
+
+      if (day === 41) {
+        dispatch(setDates(currentDays));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentMonth]);
+
   return (
     <div className="my-3 me-5">
       <div className="calendar d-flex flex-column align-items-center justify-content-center">
