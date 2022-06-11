@@ -1,8 +1,9 @@
 .event-container {
   width: 500px;
-  background: #a760ff;
+  /* background: #a760ff; */
   height: 100vh;
-  overflow: auto;
+  overflow: scroll;
+  border: 1px solid #aaa;
 }
 
 .time {
@@ -11,19 +12,27 @@
   width: 100%;
   padding: 8px;
   border-radius: 5px;
+  border: 1px solid #aaaaaa76;
 }
 
 .invitees {
-  width: 400px;
-  height: 50px;
+  height: 40px;
   overflow-x: auto;
+  border: 1px solid #aaaaaa76;
+  border-radius: 8px;
 }
 
 .chip {
   background: #3e8bff;
-  padding: 5px;
+  padding: 2px 4px;
   border-radius: 25px;
   color: #ffff;
+  font-size: 14px;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: rgba(0, 0, 0, 0.125);
 }
 
 ::-webkit-scrollbar {

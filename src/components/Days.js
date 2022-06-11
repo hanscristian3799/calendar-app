@@ -26,10 +26,28 @@ const Days = () => {
               className={
                 "calendar-day position-relative" +
                 (day.currentMonth ? " current" : " day-disabled") +
-                (day.number === currentDay.number ? " selected fw-bolder" : "")
+                (day.number === currentDay.number && day.currentMonth
+                  ? " selected fw-bolder"
+                  : "")
               }
               onClick={() => (day.currentMonth ? changeCurrentDay(day) : null)}
             >
+              <div className="position-absolute d-flex flex-column w-100 h-100">
+                {day.events.map((event, index) => {
+                  return (
+                    <div
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title={`${event.name}`}
+                      style={{
+                        background: `#${event.color}`,
+                        height: `${100 / day.events.length}%`,
+                        width: "100%",
+                      }}
+                    ></div>
+                  );
+                })}
+              </div>
               <p>{day.number.toString()}</p>
             </div>
           </Day>

@@ -9,25 +9,15 @@ const Events = () => {
   const [date, setDate] = useState(null);
   const allEvents = useSelector(dates);
 
-  //FIX EVENT CHANGE ON PARTICULAR DATE
-
   useEffect(() => {
     setDate(allEvents.find((event) => event.date === stateDate.date));
-    console.log("DT", date);
-  }, []);
-
-  const viewEvents = () => {
-    console.log("EVENTS", allEvents);
-  };
+  }, [allEvents, stateDate]);
 
   return (
-    <div className="event-container d-flex flex-column align-items-center justify-content-around px-4">
-      <h2 className="text-light">
-        {stateDate ? stateDate.date : "Select Date"}
-      </h2>
-      {/* RENDER VENT HERE */}
-
+    <div className="event-container d-flex flex-column align-items-center px-4">
+      <h2>{stateDate ? stateDate.date : "Select Date"}</h2>
       <div className="col-12">
+        <h5>Events</h5>
         <div className="accordion" id="accordionExample">
           {date ? (
             date.events.length !== 0 ? (
@@ -41,7 +31,17 @@ const Events = () => {
                         data-bs-toggle="collapse"
                         data-bs-target={`#collapse${event.id}`}
                       >
-                        {event.name}
+                        <div className="d-flex justify-content-between align-items-center w-100">
+                          <div>{event.name}</div>
+                          <div
+                            className="me-4"
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              background: `#${event.color}`,
+                            }}
+                          ></div>
+                        </div>
                       </button>
                     </h2>
                     <div
@@ -49,12 +49,22 @@ const Events = () => {
                       className="accordion-collapse collapse show"
                     >
                       <div className="accordion-body">
-                        <p>{event.time}</p>
-                        <ul>
-                          {event.invitees.map((invitee, index) => {
-                            return <li key={index}>{invitee}</li>;
-                          })}
-                        </ul>
+                        <p>
+                          <span className="fw-semibold">Time: </span>{" "}
+                          {event.time}
+                        </p>
+                        <div>
+                          <p className="fw-semibold">Invitees</p>
+                          <ul className="list-group">
+                            {event.invitees.map((invitee, index) => {
+                              return (
+                                <li key={index} className="list-group-item">
+                                  {invitee}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -68,7 +78,11 @@ const Events = () => {
           )}
         </div>
       </div>
-      <Form />
+      {date ? (
+        date.events.length !== 0 && date.events.length === 3 ? null : (
+          <Form />
+        )
+      ) : null}
     </div>
   );
 };

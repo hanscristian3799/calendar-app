@@ -2,12 +2,13 @@ import React, { useState, useRef } from "react";
 import TimePicker from "react-time-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addEvent, selectedDate } from "../store/reducers/calendarSlice";
+import { generateColor } from "../helpers/functions/index";
 import "../style/event.css";
 
 const Form = () => {
   const dispatch = useDispatch();
 
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("10:00");
   const [invitees, setInvitess] = useState([]);
   const inviteeRef = useRef("");
   const nameRef = useRef("");
@@ -26,6 +27,7 @@ const Form = () => {
       name: nameRef.current.value,
       invitees,
       time,
+      color: generateColor(selectedDate.events ? selectedDate.events : []),
     };
     dispatch(addEvent(obj));
     setInvitess([]);
@@ -34,8 +36,9 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <div className="mb-3">
+    <div className="col-12 mt-3">
+      <h5>Input Events</h5>
+      <div className="mb-1">
         <input
           type="text"
           className="form-control"
@@ -43,7 +46,7 @@ const Form = () => {
           ref={nameRef}
         />
       </div>
-      <div className="mb-3">
+      <div className="mb-1">
         <TimePicker
           onChange={setTime}
           value={time}
@@ -53,7 +56,7 @@ const Form = () => {
           minutePlaceholder="00"
         />
       </div>
-      <div className="mb-3">
+      <div className="mb-1">
         <div className="d-flex">
           <input
             type="email"
@@ -69,14 +72,16 @@ const Form = () => {
           </button>
         </div>
       </div>
-      <div className="invitees mb-3">
-        {invitees.map((inv, index) => {
-          return (
-            <span key={index} className="chip mb-2 me-2">
-              {inv}
-            </span>
-          );
-        })}
+      <div className="invitees mb-1">
+        <div className="d-flex align-items-center h-100 w-100">
+          {invitees.map((inv, index) => {
+            return (
+              <span key={index} className="chip ms-1">
+                {inv}
+              </span>
+            );
+          })}
+        </div>
       </div>
       <button className="btn btn-primary" onClick={handleAddEvent}>
         Submit
