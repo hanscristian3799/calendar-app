@@ -39,7 +39,7 @@ const Calendar = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentMonth]);
+  }, []);
 
   return (
     <div className="my-3 me-5">

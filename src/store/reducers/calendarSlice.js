@@ -27,21 +27,26 @@ const calendarSlice = createSlice({
   initialState,
   reducers: {
     addEvent(state, action) {
-      const findData = state.dates.findIndex((date) => {
+      let findData = state.dates.findIndex((date) => {
         return date.date === action.payload.date.date;
       });
-      const findDate = state.dates[findData];
-      const findLength = findDate.events.length;
+      let findDate = state.dates[findData];
+      console.log("FDD", findDate);
+      let findLength = findDate.events.length - 1;
 
       if (findLength < 4) {
         findDate.events.push(action.payload);
+        // state.selectedDate = findDate;
       }
     },
     setSelectedDate(state, action) {
+      console.log("KEPANGGIL NIHH", action.payload);
       state.selectedDate = action.payload;
+      console.log("state selectedat", state.selectedDate);
     },
     setDates(state, action) {
       state.dates = action.payload.slice();
+      console.log("as DATE", state.dates);
     },
   },
 });

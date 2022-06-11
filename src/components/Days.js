@@ -1,12 +1,17 @@
 import React from "react";
 import "../style/calendar.css";
 import Day from "./Day";
-import { setSelectedDate, dates } from "../store/reducers/calendarSlice";
+import {
+  setSelectedDate,
+  dates,
+  selectedDate,
+} from "../store/reducers/calendarSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Days = () => {
   const dispatch = useDispatch();
   const currentDays = useSelector(dates);
+  const currentDay = useSelector(selectedDate);
 
   const changeCurrentDay = (day) => {
     dispatch(setSelectedDate(day));
@@ -21,7 +26,7 @@ const Days = () => {
               className={
                 "calendar-day position-relative" +
                 (day.currentMonth ? " current" : " day-disabled") +
-                (day.selected ? " selected fw-bolder" : "")
+                (day.number === currentDay.number ? " selected fw-bolder" : "")
               }
               onClick={() => (day.currentMonth ? changeCurrentDay(day) : null)}
             >
