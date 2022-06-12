@@ -3,7 +3,7 @@ import Days from "./Days";
 import { setDates, selectedDate } from "../store/reducers/calendarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { days } from "../helpers/datas/calendar";
-import "../style/calendar.css";
+import "../style/index.css";
 
 const Calendar = () => {
   const dispatch = useDispatch();

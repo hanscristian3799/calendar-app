@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import "../style/event.css";
+import "../style/index.css";
 import { selectedDate, dates } from "../store/reducers/calendarSlice";
 import Form from "./Form";
 import Event from "./Event";

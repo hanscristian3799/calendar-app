@@ -3,7 +3,7 @@ import TimePicker from "react-time-picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addEvent, selectedDate } from "../store/reducers/calendarSlice";
 import { generateColor } from "../helpers/functions/index";
-import "../style/event.css";
+import "../style/index.css";
 
 const Form = () => {
   const dispatch = useDispatch();

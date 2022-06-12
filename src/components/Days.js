@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/calendar.css";
+import "../style/index.css";
 import Day from "./Day";
 import {
   setSelectedDate,
