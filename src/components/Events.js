@@ -26,10 +26,10 @@ const Events = () => {
                 return <Event event={event} />;
               })
             ) : (
-              <p>No events</p>
+              <p>No Events</p>
             )
           ) : (
-            <p>NO Events</p>
+            <p>No Events</p>
           )}
         </div>
       </div>

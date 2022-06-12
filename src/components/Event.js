@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { deleteEvent } from "../store/reducers/calendarSlice";
 import { useDispatch } from "react-redux";
+import EditModal from "./EditModal";
 
 const Event = ({ event }) => {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const deleteItem = () => {
     dispatch(deleteEvent(event.id));
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
   return (
@@ -52,7 +62,13 @@ const Event = ({ event }) => {
             </ul>
           </div>
           <div className="d-flex justify-content-end">
-            <button type="button" class="btn btn-warning me-2">
+            <button
+              type="button"
+              class="btn btn-warning me-2"
+              data-bs-toggle="modal"
+              data-bs-target={`#staticBackdrop${event.id}`}
+              onClick={openModal}
+            >
               <span className="text-light">Edit</span>
             </button>
             <button type="button" class="btn btn-danger" onClick={deleteItem}>
@@ -61,6 +77,11 @@ const Event = ({ event }) => {
           </div>
         </div>
       </div>
+      <EditModal
+        event={event}
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+      />
     </div>
   );
 };
