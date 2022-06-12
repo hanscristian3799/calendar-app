@@ -36,7 +36,28 @@ const calendarSlice = createSlice({
 
       if (findLength < 4) {
         findDate.events.push(action.payload);
-        // state.selectedDate = findDate;
+      }
+    },
+    deleteEvent(state, action) {
+      console.log("DELETE EVENT", action.payload);
+      let dateIdx = state.dates.findIndex((date) => {
+        return date.date === state.selectedDate.date;
+      });
+
+      const find = state.dates[dateIdx];
+
+      console.log("FIND DATE", find);
+      console.log("FIND DATE IDX", dateIdx);
+
+      if (find) {
+        console.log(find.events[0].id);
+        const idx = find.events.findIndex((event) => {
+          return event.id === action.payload;
+        });
+        console.log("INDEX DELETE", idx);
+        if (idx > -1) {
+          state.dates[dateIdx].events.splice(idx, 1);
+        }
       }
     },
     setSelectedDate(state, action) {
@@ -51,7 +72,8 @@ const calendarSlice = createSlice({
   },
 });
 
-export const { addEvent, setSelectedDate, setDates } = calendarSlice.actions;
+export const { addEvent, setSelectedDate, setDates, deleteEvent } =
+  calendarSlice.actions;
 
 export const selectedDate = (state) => state.calendar.selectedDate;
 export const events = (state) => state.calendar.events;
