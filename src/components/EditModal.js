@@ -8,6 +8,7 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
   const inviteeRef = useRef("");
   const nameRef = useRef("");
   const [time, setTime] = useState(event.time);
+  const [errorText, setErrorText] = useState("");
   const [invitees, setInvitees] = useState([]);
 
   const deleteInvitee = (invitee) => {
@@ -17,8 +18,16 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
   };
 
   const addInvitees = (invitee) => {
-    if (!invitee) return;
-    setInvitees([...invitees, invitee]);
+    /* eslint-disable no-useless-escape */
+    const regex =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (!invitee || regex.test(invitee) === false) {
+      setErrorText("Email is not valid");
+    } else {
+      setErrorText("");
+      setInvitees([...invitees, invitee]);
+      inviteeRef.current.value = "";
+    }
   };
 
   const cancelEdit = () => {
@@ -135,6 +144,7 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
                   </div>
                 </div>
               </div>
+              <div className="text-danger">{errorText}</div>
             </div>
           </div>
           <div className="modal-footer">

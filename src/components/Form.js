@@ -9,14 +9,23 @@ const Form = () => {
   const dispatch = useDispatch();
 
   const [time, setTime] = useState("10:00");
+  const [errorText, setErrorText] = useState("");
   const [invitees, setInvitess] = useState([]);
   const inviteeRef = useRef("");
   const nameRef = useRef("");
   const date = useSelector(selectedDate);
 
   const addInvitees = (invitee) => {
-    if (!invitee) return;
-    setInvitess([...invitees, invitee]);
+    /* eslint-disable no-useless-escape */
+    const regex =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (!invitee || regex.test(invitee) === false) {
+      setErrorText("Email is not valid");
+    } else {
+      setErrorText("");
+      setInvitess([...invitees, invitee]);
+      inviteeRef.current.value = "";
+    }
   };
 
   const handleAddEvent = () => {
@@ -84,6 +93,7 @@ const Form = () => {
           })}
         </div>
       </div>
+      <div className="text-danger">{errorText}</div>
       <button className="btn btn-primary" onClick={handleAddEvent}>
         Submit
       </button>
