@@ -36,6 +36,7 @@ const Days = () => {
                 {day.events.map((event, index) => {
                   return (
                     <div
+                      key={index}
                       data-bs-toggle="tooltip"
                       data-bs-placement="top"
                       title={`${event.name}`}

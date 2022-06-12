@@ -32,10 +32,14 @@ const Event = ({ event }) => {
             <div>{event.name}</div>
             <div
               className="me-4"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title={`${event.color}`}
               style={{
                 width: "20px",
                 height: "20px",
                 background: `#${event.color}`,
+                border: "1px solid #aaaaaa76",
               }}
             ></div>
           </div>
@@ -64,14 +68,18 @@ const Event = ({ event }) => {
           <div className="d-flex justify-content-end">
             <button
               type="button"
-              class="btn btn-warning me-2"
+              className="btn btn-warning me-2"
               data-bs-toggle="modal"
               data-bs-target={`#staticBackdrop${event.id}`}
               onClick={openModal}
             >
               <span className="text-light">Edit</span>
             </button>
-            <button type="button" class="btn btn-danger" onClick={deleteItem}>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteItem}
+            >
               Delete
             </button>
           </div>
