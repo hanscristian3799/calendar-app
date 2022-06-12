@@ -32,11 +32,12 @@ const Form = () => {
     dispatch(addEvent(obj));
     setInvitess([]);
     nameRef.current.value = "";
-    setTime("");
+    inviteeRef.current.value = "";
+    setTime("10:00");
   };
 
   return (
-    <div className="col-12 mt-3">
+    <div className="col-12 mt-3 mb-2">
       <h5>Input Events</h5>
       <div className="mb-1">
         <input

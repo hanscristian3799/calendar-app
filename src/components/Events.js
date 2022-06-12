@@ -16,7 +16,7 @@ const Events = () => {
 
   return (
     <div className="event-container d-flex flex-column align-items-center px-4">
-      <h2>{stateDate ? stateDate.date : "Select Date"}</h2>
+      <h2 className="my-3">{stateDate ? stateDate.date : "Select Date"}</h2>
       <div className="col-12">
         <h5>Events</h5>
         <div className="accordion" id="accordionExample">
