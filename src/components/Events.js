@@ -22,8 +22,8 @@ const Events = () => {
         <div className="accordion" id="accordionExample">
           {date ? (
             date.events.length !== 0 ? (
-              date.events.map((event) => {
-                return <Event event={event} />;
+              date.events.map((event, index) => {
+                return <Event key={index} event={event} />;
               })
             ) : (
               <p>No Events</p>
