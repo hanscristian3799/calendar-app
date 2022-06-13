@@ -13,29 +13,34 @@ const Calendar = () => {
   let currentDays = [];
 
   useEffect(() => {
-    for (let day = 0; day < 42; day++) {
-      if (day === 0 && weekOfFirstDay === 0) {
-        firstDay.setDate(firstDay.getDate() - 7);
-      } else if (day === 0) {
-        firstDay.setDate(firstDay.getDate() + (day - weekOfFirstDay));
-      } else {
-        firstDay.setDate(firstDay.getDate() + 1);
-      }
+    console.log("NOT EXIST");
+    const localDates = JSON.parse(localStorage.getItem("persist:root"));
 
-      let calendarDay = {
-        currentMonth: firstDay.getMonth() === currentMonth.month,
-        date: new Date(firstDay).toDateString(),
-        month: firstDay.getMonth(),
-        number: firstDay.getDate(),
-        selected: firstDay.toDateString() === currentMonth.date,
-        year: firstDay.getFullYear(),
-        events: [],
-      };
+    if (!localDates) {
+      for (let day = 0; day < 42; day++) {
+        if (day === 0 && weekOfFirstDay === 0) {
+          firstDay.setDate(firstDay.getDate() - 7);
+        } else if (day === 0) {
+          firstDay.setDate(firstDay.getDate() + (day - weekOfFirstDay));
+        } else {
+          firstDay.setDate(firstDay.getDate() + 1);
+        }
 
-      currentDays.push(calendarDay);
+        let calendarDay = {
+          currentMonth: firstDay.getMonth() === currentMonth.month,
+          date: new Date(firstDay).toDateString(),
+          month: firstDay.getMonth(),
+          number: firstDay.getDate(),
+          selected: firstDay.toDateString() === currentMonth.date,
+          year: firstDay.getFullYear(),
+          events: [],
+        };
 
-      if (day === 41) {
-        dispatch(setDates(currentDays));
+        currentDays.push(calendarDay);
+
+        if (day === 41) {
+          dispatch(setDates(currentDays));
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
