@@ -51,15 +51,16 @@ const Event = ({ event }) => {
       >
         <div className="accordion-body">
           <p>
-            <span className="fw-semibold">Time: </span> {event.time}
+            <span className="fw-semibold">Time: </span> {event.time}{" "}
+            {event.time.split(":")[0] < 12 ? "AM" : "PM"}
           </p>
           <div className="mb-3">
             <p className="fw-semibold">Invitees</p>
             <ul className="list-group">
-              {event.invitees.map((invitee, index) => {
+              {event.invitees.map((invitee) => {
                 return (
-                  <li key={index} className="list-group-item">
-                    {invitee}
+                  <li key={invitee.id} className="list-group-item">
+                    {invitee.name}
                   </li>
                 );
               })}

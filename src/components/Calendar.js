@@ -13,7 +13,6 @@ const Calendar = () => {
   let currentDays = [];
 
   useEffect(() => {
-    console.log("NOT EXIST");
     const localDates = JSON.parse(localStorage.getItem("persist:root"));
 
     if (!localDates) {

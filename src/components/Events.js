@@ -15,7 +15,7 @@ const Events = () => {
   }, [allEvents, stateDate]);
 
   return (
-    <div className="event-container d-flex flex-column align-items-center px-4">
+    <div className="event-container d-flex flex-column align-items-center px-4 pb-2">
       <h2 className="my-3">{stateDate ? stateDate.date : "Select Date"}</h2>
       <div className="col-12">
         <h5>Events</h5>

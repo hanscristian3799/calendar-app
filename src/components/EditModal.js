@@ -6,14 +6,14 @@ import TimePicker from "react-time-picker";
 const EditModal = ({ event, isModalOpen, closeModal }) => {
   const dispatch = useDispatch();
   const inviteeRef = useRef("");
-  const nameRef = useRef("");
+  const [name, setName] = useState(event.name);
   const [time, setTime] = useState(event.time);
   const [errorText, setErrorText] = useState("");
   const [invitees, setInvitees] = useState([]);
 
   const deleteInvitee = (invitee) => {
     if (!invitee) return;
-    const newInvitees = invitees.filter((inv) => inv !== invitee);
+    const newInvitees = invitees.filter((inv) => inv.id !== invitee);
     setInvitees(newInvitees);
   };
 
@@ -21,42 +21,51 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
     /* eslint-disable no-useless-escape */
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const found = invitees.find((inv) => inv.name === invitee);
+
     if (!invitee || regex.test(invitee) === false) {
       setErrorText("Email is not valid");
+    } else if (found) {
+      setErrorText("Email is already set as an invitee");
     } else {
       setErrorText("");
-      setInvitees([...invitees, invitee]);
+      const inviteeObj = {
+        id: Math.round(new Date() / 1000),
+        name: invitee,
+      };
+      setInvitees([...invitees, inviteeObj]);
       inviteeRef.current.value = "";
     }
   };
 
   const cancelEdit = () => {
     inviteeRef.current.value = "";
+    setErrorText("");
     closeModal();
   };
 
   const editEventData = () => {
     if (
-      event.name === nameRef.current.value &&
+      event.name === name &&
       event.invitees === invitees &&
       event.time === time
     ) {
-      console.log("EYYY");
       return;
+    } else {
+      const data = {
+        id: event.id,
+        date: event.date,
+        name,
+        invitees,
+        time,
+        color: event.color,
+      };
+      dispatch(editEvent(data));
     }
-    const data = {
-      id: event.id,
-      date: event.date,
-      name: nameRef.current.value,
-      invitees,
-      time,
-      color: event.color,
-    };
-    dispatch(editEvent(data));
   };
 
   useEffect(() => {
-    nameRef.current.value = event.name;
+    setName(event.name);
     setInvitees(event.invitees);
     setTime(event.time);
   }, [isModalOpen, event]);
@@ -92,7 +101,8 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
                   type="text"
                   className="form-control"
                   placeholder="Event name"
-                  ref={nameRef}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="mb-1">
@@ -124,20 +134,22 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
               <div className="invitees mb-1">
                 <div className="d-flex align-items-center h-100 w-100">
                   <div className="d-flex align-items-center h-100 w-100">
-                    {invitees.map((inv, index) => {
+                    {invitees.map((inv) => {
                       return (
                         <div
-                          key={index}
+                          key={inv.id}
                           className="chip ms-1 d-flex align-items-center"
                         >
-                          <div className="mx-2">{inv}</div>
-                          <div
-                            className="me-2 text-danger"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => deleteInvitee(inv)}
-                          >
-                            x
-                          </div>
+                          <div className="mx-2">{inv.name}</div>
+                          {invitees.length === 1 ? null : (
+                            <div
+                              className="me-2 text-danger"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => deleteInvitee(inv.id)}
+                            >
+                              x
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -161,6 +173,7 @@ const EditModal = ({ event, isModalOpen, closeModal }) => {
               className="btn btn-primary"
               data-bs-dismiss="modal"
               onClick={editEventData}
+              disabled={!time || !name}
             >
               Save changes
             </button>

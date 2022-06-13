@@ -19,30 +19,41 @@ const Form = () => {
     /* eslint-disable no-useless-escape */
     const regex =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const found = invitees.find((inv) => inv.name === invitee);
+
     if (!invitee || regex.test(invitee) === false) {
       setErrorText("Email is not valid");
+    } else if (found) {
+      setErrorText("Email is already set as an invitee");
     } else {
       setErrorText("");
-      setInvitess([...invitees, invitee]);
+      const inviteeObj = {
+        id: Math.round(new Date() / 1000),
+        name: invitee,
+      };
+      setInvitess([...invitees, inviteeObj]);
       inviteeRef.current.value = "";
     }
   };
 
   const handleAddEvent = () => {
-    if (!time || !nameRef.current.value || invitees.length < 1) return;
-    const obj = {
-      id: Math.round(new Date() / 1000),
-      date,
-      name: nameRef.current.value,
-      invitees,
-      time,
-      color: generateColor(selectedDate.events ? selectedDate.events : []),
-    };
-    dispatch(addEvent(obj));
-    setInvitess([]);
-    nameRef.current.value = "";
-    inviteeRef.current.value = "";
-    setTime("10:00");
+    if (!time || !nameRef.current.value || invitees.length < 1) {
+      setErrorText("Field(s) can't be empty");
+    } else {
+      const obj = {
+        id: Math.round(new Date() / 1000),
+        date,
+        name: nameRef.current.value,
+        invitees,
+        time,
+        color: generateColor(selectedDate.events ? selectedDate.events : []),
+      };
+      dispatch(addEvent(obj));
+      setInvitess([]);
+      nameRef.current.value = "";
+      inviteeRef.current.value = "";
+      setTime("10:00");
+    }
   };
 
   return (
@@ -84,10 +95,10 @@ const Form = () => {
       </div>
       <div className="invitees mb-1">
         <div className="d-flex align-items-center h-100 w-100">
-          {invitees.map((inv, index) => {
+          {invitees.map((inv) => {
             return (
-              <span key={index} className="chip ms-1">
-                {inv}
+              <span key={inv.id} className="chip ms-1">
+                {inv.name}
               </span>
             );
           })}
