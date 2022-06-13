@@ -29,7 +29,7 @@ const Event = ({ event }) => {
           data-bs-target={`#collapse${event.id}`}
         >
           <div className="d-flex justify-content-between align-items-center w-100">
-            <div>{event.name}</div>
+            <div className="fw-bold">{event.name}</div>
             <div
               className="me-4"
               data-bs-toggle="tooltip"
